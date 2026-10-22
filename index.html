@@ -1,0 +1,870 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Jiagen Geng: Ph.D. student in Environmental Engineering at Michigan State University, working on organic pollutants in water.">
+<style>
+  html { color-scheme: light; }
+  body { margin: 0; }
+  img { max-width: 100%; }
+  [hidden] { display: none !important; }
+</style>
+<title>Jiagen Geng</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Kalam:wght@400;700&family=Schibsted+Grotesk:wght@400;500;700;800&display=swap">
+<style>
+/* Layout: a lab notebook page. Printed text on the left, ballpoint margin notes on the right, aligned row by row. */
+:root {
+  --paper: #f6f8f8;
+  --card: #ffffff;
+  --ink: #121718;
+  --muted: #5a6568;
+  --rule: #dce2e3;
+  --pen: #2640b5;
+  --pen-soft: #e6eafa;
+  --sign: #f4c430;
+  --sign-ink: #121718;
+
+  --f-display: "Schibsted Grotesk", "Helvetica Neue", Arial, sans-serif;
+  --f-body: "Schibsted Grotesk", "Helvetica Neue", Arial, sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+  --f-hand: "Kalam", "Comic Sans MS", "Bradley Hand", cursive;
+
+  --margin-w: 17rem;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0f1314; --card: #161c1e; --ink: #e7ecec; --muted: #9aa5a8;
+    --rule: #263033; --pen: #93a9ff; --pen-soft: #1c2440; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #0f1314; --card: #161c1e; --ink: #e7ecec; --muted: #9aa5a8;
+  --rule: #263033; --pen: #93a9ff; --pen-soft: #1c2440; color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font: 400 1rem/1.6 var(--f-body);
+  overflow-x: hidden;
+}
+.page {
+  max-width: 58rem;
+  margin: 0 auto;
+  padding-block: 2.5rem 4rem;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  display: grid;
+  gap: 3.25rem;
+}
+button { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--pen); outline-offset: 3px; border-radius: 4px; }
+
+/* ---------- index bar ---------- */
+.index {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 10;
+  display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: .5rem 1.5rem;
+  background: var(--paper); border-bottom: 1px solid var(--rule);
+  padding-block: .7rem; margin-bottom: -1.5rem;
+  font: 500 .8rem/1.3 var(--f-mono);
+}
+.index a { color: var(--ink); text-decoration: none; }
+.index a:hover { color: var(--pen); text-decoration: underline; text-underline-offset: 3px; }
+.index-sec, .index-me { display: flex; flex-wrap: wrap; align-items: center; gap: .4rem 1.1rem; min-width: 0; }
+.index-me .mail { display: inline-flex; align-items: center; gap: .45rem; color: var(--muted); }
+.index-me .addr { user-select: all; color: var(--ink); }
+.index-me .copy {
+  border: 1px solid var(--rule); background: transparent; border-radius: 999px;
+  padding: .1rem .55rem; font: 500 .72rem/1.3 var(--f-mono); color: var(--muted); cursor: pointer;
+}
+.index-me .copy:hover { border-color: var(--pen); color: var(--pen); }
+.collapsed .index-sec { display: none; }
+h2 { scroll-margin-top: 4.5rem; }
+abbr[data-full] { position: relative; text-decoration: underline dotted; text-decoration-color: var(--muted); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+abbr[data-full]:hover::after, abbr[data-full]:focus-visible::after {
+  content: attr(data-full); position: absolute; left: 0; top: calc(100% + 6px); z-index: 30;
+  width: max-content; max-width: min(20rem, 80vw); white-space: normal;
+  background: var(--ink); color: var(--paper); border-radius: 6px; padding: .35rem .55rem;
+  font: 500 .74rem/1.35 var(--f-mono); letter-spacing: 0; text-transform: none; pointer-events: none;
+}
+#page:not(.formal) .mk abbr[data-full]::after { display: none; }
+a.doi { color: inherit; text-decoration: underline; text-decoration-color: var(--rule); text-underline-offset: 3px; }
+a.doi:hover { color: var(--pen); text-decoration-color: var(--pen); }
+
+/* ---------- header ---------- */
+.top {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) var(--margin-w);
+  gap: 1.5rem 3rem;
+  align-items: start;
+}
+.eyebrow {
+  font: 500 .75rem/1.4 var(--f-mono);
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 0 0 .9rem;
+}
+h1 {
+  font: 800 clamp(2.6rem, 7vw, 4.6rem)/.95 var(--f-display);
+  letter-spacing: -.035em;
+  margin: 0 0 .8rem;
+  text-wrap: balance;
+}
+.hook {
+  font: 500 clamp(1.2rem, 2.4vw, 1.5rem)/1.35 var(--f-display);
+  letter-spacing: -.01em;
+  margin: 0 0 1rem;
+  max-width: 34ch;
+  text-wrap: balance;
+}
+.intro { max-width: 60ch; color: var(--ink); margin: 0; }
+.intro sub { font-size: .7em; }
+.clear-link { color: var(--pen); text-decoration: underline; text-decoration-thickness: 1.5px; text-underline-offset: 3px; }
+.clear-link:hover { text-decoration-thickness: 2.5px; }
+.affil { margin: 0 0 1.5rem; max-width: 60ch; color: var(--muted); }
+.bio { display: grid; gap: .8rem; max-width: 60ch; }
+.bio .intro { font-size: 1.08rem; line-height: 1.6; }
+.bio .lead { font: 500 clamp(1.18rem, 2.1vw, 1.32rem)/1.4 var(--f-display); letter-spacing: -.005em; max-width: 46ch; text-wrap: pretty; }
+.bio .lead.mine-only { font-size: clamp(1.08rem, 1.7vw, 1.16rem); font-weight: 400; line-height: 1.45; max-width: 54ch; }
+/* both intros share one slot, sized to the taller one, so switching versions moves nothing below */
+.bio > .intro { grid-area: 1 / 1; align-self: start; }
+#page.formal .bio .mine-only, #page:not(.formal) .bio .formal-only { display: block; visibility: hidden; }
+.affil a.doi { color: var(--ink); }
+/* version switch: "formal" hides the pen layer */
+.ver { display: inline-flex; border: 1.5px solid var(--ink); border-radius: 999px; padding: 2px; gap: 2px; }
+.ver button {
+  border: 0; background: transparent; border-radius: 999px; padding: .42rem .85rem;
+  font: 500 .88rem/1.2 var(--f-body); cursor: pointer; color: var(--muted);
+}
+.ver button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+.ver button[data-ver="mine"][aria-pressed="true"] { background: var(--pen); color: var(--paper); font-family: var(--f-hand); font-size: 1rem; }
+.collapsed .ver { display: none; }
+.formal .note, .formal .work .margin-label, .formal .mine-only { display: none; }
+.formal .row, .formal .sec-head { grid-template-columns: minmax(0, 1fr); }
+.formal .mk.circle, .formal .mk.under, .formal .mk.hot { border-color: transparent; text-decoration: none; padding: 0; margin: 0; background: none; }
+.side { display: grid; gap: 1.1rem; justify-items: start; }
+.headshot {
+  display: block; width: 100%; max-width: 14rem; height: auto; aspect-ratio: 643 / 900;
+  object-fit: cover; border-radius: 12px; border: 1px solid var(--rule);
+}
+#page:not(.formal) .formal-only { display: none; }
+/* photo (Main text) and sign (Supplementary) share one slot too, so the header keeps its height */
+.side > .headshot, .side > .sign { grid-area: 1 / 1; align-self: start; }
+#page.formal .side .sign { display: grid; visibility: hidden; }
+#page:not(.formal) .side .headshot { display: block; visibility: hidden; }
+@media (max-width: 760px) { .headshot { max-width: 11rem; } }
+.controls { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1.6rem; align-items: center; }
+
+.switch {
+  display: inline-flex; align-items: center; gap: .7rem;
+  border: 1.5px solid var(--ink);
+  background: transparent;
+  padding: .55rem .95rem .55rem .6rem;
+  border-radius: 999px;
+  cursor: pointer;
+  font-weight: 500;
+}
+.switch .knob {
+  width: 2.3rem; height: 1.3rem; border-radius: 999px;
+  background: var(--rule); position: relative; flex: none;
+  transition: background .25s;
+}
+.switch .knob::after {
+  content: ""; position: absolute; top: .15rem; left: .15rem;
+  width: 1rem; height: 1rem; border-radius: 50%;
+  background: var(--ink); transition: transform .25s;
+}
+.switch[aria-pressed="true"] .knob { background: var(--pen); }
+.switch[aria-pressed="true"] .knob::after { transform: translateX(1rem); background: var(--paper); }
+
+/* safety sign */
+.sign {
+  display: grid;
+  border: 2px solid var(--sign-ink);
+  border-radius: 6px;
+  overflow: hidden;
+  background: var(--sign);
+  color: var(--sign-ink);
+  text-align: left;
+  cursor: pointer;
+  padding: 0;
+  width: 100%;
+  box-shadow: 0 1px 0 rgba(0,0,0,.08);
+  transform: rotate(1.2deg);
+  transition: transform .2s;
+}
+.sign:hover { transform: rotate(0deg) translateY(-2px); }
+.sign-head {
+  background: var(--sign-ink); color: var(--sign);
+  font: 700 .78rem/1 var(--f-mono); letter-spacing: .16em;
+  padding: .55rem .8rem; display: flex; align-items: center; gap: .5rem;
+}
+.sign-head::before {
+  content: ""; width: 0; height: 0;
+  border-left: .45rem solid transparent; border-right: .45rem solid transparent;
+  border-bottom: .75rem solid var(--sign);
+}
+.sign-body { padding: .7rem .85rem .85rem; display: grid; gap: .15rem; }
+.sign-small { font: 700 .72rem/1.25 var(--f-display); text-transform: uppercase; letter-spacing: .05em; }
+.sign-num {
+  font: 800 3.4rem/1 var(--f-display); letter-spacing: -.04em;
+  font-variant-numeric: tabular-nums;
+}
+.sign-foot { font: 500 .7rem/1.3 var(--f-mono); margin-top: .35rem; opacity: .8; }
+
+/* ---------- work page vs. off-duty view ---------- */
+.work { display: grid; gap: 3.25rem; transition: opacity .25s ease; }
+.is-off .work { opacity: 0; transition: opacity .35s ease .55s; }
+.work[hidden] { display: none !important; }
+.collapsed .top .print { display: none; }
+
+/* ---------- sections ---------- */
+section { display: grid; gap: .25rem; }
+.sec-head {
+  display: grid; grid-template-columns: minmax(0, 1fr) var(--margin-w); gap: 3rem;
+  align-items: end; border-bottom: 1.5px solid var(--ink); padding-bottom: .5rem; margin-bottom: .5rem;
+}
+h2 {
+  font: 700 1.05rem/1.2 var(--f-mono); text-transform: uppercase; letter-spacing: .08em; margin: 0;
+}
+.margin-label { font: 400 .95rem/1.2 var(--f-hand); color: var(--pen); }
+
+.row {
+  display: grid; grid-template-columns: minmax(0, 1fr) var(--margin-w); gap: 3rem;
+  padding: .85rem 0; border-bottom: 1px solid var(--rule);
+  position: relative;
+}
+.row .txt { min-width: 0; max-width: 62ch; }
+.row .label {
+  font: 500 .72rem/1.3 var(--f-mono); text-transform: uppercase; letter-spacing: .06em; color: var(--muted);
+  display: block; margin-bottom: .2rem;
+}
+.row p { margin: 0; }
+.row .txt p + p { margin-top: .3rem; }
+.row .txt .aside { font-size: .9rem; color: var(--muted); }
+.skill-list { display: grid; grid-template-columns: 11.5rem minmax(0, 1fr); gap: .45rem 1rem; margin: .15rem 0 0; }
+.skill-list dt { font: 500 .72rem/1.9 var(--f-mono); text-transform: uppercase; letter-spacing: .05em; color: var(--muted); }
+.skill-list dd { margin: 0; }
+@media (max-width: 560px) { .skill-list { grid-template-columns: minmax(0, 1fr); gap: .05rem; } .skill-list dd { margin-bottom: .45rem; } }
+.row .title { font-weight: 700; }
+.row .meta { color: var(--muted); font-size: .92rem; }
+
+.note { min-width: 0; display: grid; gap: .9rem; align-content: start; padding-top: .1rem; }
+.note-text {
+  position: relative;
+  font: 400 1.06rem/1.32 var(--f-hand); color: var(--pen); margin: 0;
+  padding: .15rem .4rem .25rem 1.35rem; border-radius: 6px;
+  transform: rotate(var(--tilt, -.8deg));
+  transition: background-color .2s, transform .2s;
+}
+.note-text::before { content: "←"; position: absolute; left: .15rem; top: .12rem; font-weight: 700; }
+.note-text s { text-decoration-thickness: 2px; }
+.note-text .ref {
+  border: 0; background: none; padding: 0; color: inherit; font: inherit;
+  text-decoration: underline; text-underline-offset: 3px; cursor: pointer;
+}
+/* phrases marked in blue pen, linked to their note */
+.mk { border-radius: 4px; transition: background-color .2s; }
+.mk.circle {
+  padding: 0 .28em; margin: 0 -.04em;
+  border: 1.6px solid var(--pen);
+  border-radius: 48% 52% 45% 55% / 58% 46% 54% 42%;
+  -webkit-box-decoration-break: clone; box-decoration-break: clone;
+}
+.mk.under {
+  text-decoration: underline wavy var(--pen);
+  text-decoration-thickness: 1.4px; text-underline-offset: 4px; text-decoration-skip-ink: none;
+}
+.mk.hot, .note-text.hot { background: var(--pen-soft); }
+.note-text.hot { transform: rotate(0deg); }
+
+/* ---------- didn't-know sticky ---------- */
+.curious {
+  display: grid; grid-template-columns: minmax(0, 1fr) var(--margin-w); gap: 3rem; align-items: start;
+}
+.sticky {
+  background: var(--pen-soft);
+  border-radius: 4px 4px 14px 4px;
+  padding: 1.1rem 1.25rem 1.2rem;
+  max-width: 34rem;
+  transform: rotate(-.8deg);
+  display: grid; gap: .55rem;
+}
+.sticky .k { font: 500 .72rem/1.3 var(--f-mono); text-transform: uppercase; letter-spacing: .06em; color: var(--pen); margin: 0; }
+.sticky .q { font: 700 1.2rem/1.3 var(--f-display); margin: 0; text-wrap: balance; }
+.sticky .a { font: 400 1.08rem/1.38 var(--f-hand); color: var(--pen); margin: 0; }
+.sticky .btns { display: flex; gap: .6rem; flex-wrap: wrap; margin-top: .2rem; }
+.chip {
+  border: 1px solid var(--pen); color: var(--pen); background: transparent;
+  border-radius: 999px; padding: .3rem .8rem; font: 500 .82rem/1.2 var(--f-mono); cursor: pointer;
+}
+.chip:hover { background: var(--pen); color: var(--paper); }
+.mystery {
+  font: 400 1.05rem/1.35 var(--f-hand); color: var(--pen); margin: 0; padding-top: .4rem;
+}
+.mystery b { font-weight: 700; }
+
+.allq { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: .9rem; }
+.allq .sticky { transform: rotate(var(--r, 0deg)); max-width: none; }
+
+footer { color: var(--muted); font: 400 .8rem/1.5 var(--f-mono); }
+
+/* ---------- falling ---------- */
+.print {
+  transition:
+    transform 1.6s cubic-bezier(.2,.8,.25,1) var(--back, 0s),
+    opacity .9s ease var(--back, 0s);
+}
+.is-off .print {
+  transform: translate(var(--dx, 0), 120vh) rotate(var(--rot, 8deg));
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition:
+    transform .95s cubic-bezier(.55,0,.9,.45) var(--d, 0s),
+    opacity .3s linear calc(var(--d, 0s) + .65s),
+    visibility 0s linear calc(var(--d, 0s) + .95s);
+}
+@media (prefers-reduced-motion: reduce) {
+  .print, .is-off .print { transition: opacity .2s linear, visibility 0s linear .2s; transform: none !important; }
+  .note-text, .sign, .offduty.enter { transition: none; animation: none; }
+}
+
+/* ---------- incident log ---------- */
+dialog {
+  border: 1.5px solid var(--ink); border-radius: 12px; padding: 0;
+  background: var(--card); color: var(--ink);
+  width: min(40rem, calc(100vw - 32px)); max-height: min(44rem, calc(100vh - 48px));
+}
+dialog::backdrop { background: rgba(10, 14, 15, .45); }
+.log-head {
+  background: var(--sign); color: var(--sign-ink);
+  padding: 1rem 1.25rem; display: flex; justify-content: space-between; align-items: start; gap: 1rem;
+}
+.log-head h3 { margin: 0; font: 800 1.35rem/1.15 var(--f-display); letter-spacing: -.01em; }
+.log-head p { margin: .25rem 0 0; font: 500 .78rem/1.35 var(--f-mono); }
+.x { border: 1.5px solid var(--sign-ink); background: transparent; color: var(--sign-ink); border-radius: 999px; padding: .2rem .7rem; cursor: pointer; font: 500 .8rem/1.4 var(--f-mono); flex: none; }
+.log { list-style: none; margin: 0; padding: .5rem 1.25rem 1.25rem; display: grid; }
+.log li { padding: 1rem 0; border-bottom: 1px solid var(--rule); display: grid; gap: .3rem; }
+.log li:last-child { border-bottom: 0; }
+.log .when { font: 500 .74rem/1.3 var(--f-mono); color: var(--muted); font-variant-numeric: tabular-nums; display: flex; gap: .6rem; flex-wrap: wrap; align-items: center; }
+.log .tag { border: 1px solid currentColor; border-radius: 999px; padding: 0 .45rem; }
+.log .tag.reset { color: var(--ink); background: var(--sign); border-color: var(--sign-ink); }
+.log h4 { margin: 0; font: 700 1.05rem/1.3 var(--f-display); }
+.log p { margin: 0; }
+.log .lesson { font: 400 1.05rem/1.35 var(--f-hand); color: var(--pen); }
+.log .steps { display: grid; grid-template-columns: 8.5rem minmax(0, 1fr); gap: .35rem .9rem; margin: .2rem 0; }
+.log .steps dt { font: 500 .72rem/1.6 var(--f-mono); text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+.log .steps dd { margin: 0; }
+@media (max-width: 560px) { .log .steps { grid-template-columns: minmax(0, 1fr); gap: .1rem; } .log .steps dd { margin-bottom: .4rem; } }
+.log .exhibit { margin: .4rem 0 .1rem; display: grid; gap: .3rem; justify-items: center; text-align: center; }
+.log .exhibit img { display: block; width: auto; height: auto; max-width: min(100%, 24rem); max-height: 26rem; border-radius: 8px; border: 1px solid var(--rule); }
+.log .exhibit figcaption { font: 500 .74rem/1.3 var(--f-mono); color: var(--muted); }
+.log li.flash { animation: flash 1.4s ease-out; }
+@keyframes flash { 0% { background: var(--pen-soft); } 100% { background: transparent; } }
+
+/* ---------- narrow ---------- */
+@media (max-width: 760px) {
+  .top, .sec-head, .row, .curious { grid-template-columns: minmax(0, 1fr); gap: .6rem; }
+  .sign { max-width: 17rem; transform: rotate(.8deg); }
+  .margin-label { display: none; }
+  .note { gap: .5rem; padding-top: 0; }
+  .index { position: static; }
+  .note-text::before { content: "↑"; }
+}
+
+/* ---------- notes float beside a centered text column ---------- */
+.row, .curious { grid-template-columns: minmax(0, 1fr); }
+.sec-head { display: flex; justify-content: space-between; align-items: end; gap: 1rem; }
+/* labels sit in their own left column, text in the middle, notes appear to the right */
+.row .txt { display: grid; grid-template-columns: 13rem minmax(0, 1fr); column-gap: 2rem; max-width: calc(15rem + 62ch); }
+.row .txt > .label { grid-column: 1; grid-row: 1 / span 6; margin: 0; padding-top: .3rem; line-height: 1.45; }
+.row .txt > :not(.label) { grid-column: 2; }
+/* publications: year | graphical abstract | citation */
+.row .txt.pub { grid-template-columns: 3.5rem 11rem minmax(0, 1fr); column-gap: 1.5rem; max-width: calc(17.5rem + 62ch); }
+.row .txt.pub > .toc { grid-column: 2; grid-row: 1 / span 6; align-self: start; }
+.row .txt.pub > :not(.label):not(.toc) { grid-column: 3; }
+.toc img { display: block; width: 11rem; height: 7.5rem; object-fit: contain; background: #fff; border: 1px solid var(--rule); border-radius: 6px; transition: border-color .2s; }
+.toc:hover img { border-color: var(--pen); }
+@media (max-width: 760px) {
+  .row .txt { display: block; max-width: none; }
+  .toc img { width: 11rem; height: auto; max-height: 8rem; margin: .3rem 0 .5rem; }
+  .row .txt > .label { margin-bottom: .2rem; padding-top: 0; }
+}
+.note { display: none !important; }
+.page { position: relative; }
+#page:not(.formal) .mk { cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28'><line x1='16' y1='16' x2='25' y2='25' stroke='white' stroke-width='7' stroke-linecap='round'/><line x1='16' y1='16' x2='25' y2='25' stroke='%232640b5' stroke-width='4' stroke-linecap='round'/><circle cx='11' cy='11' r='7.5' fill='%23e6eafa' fill-opacity='.85' stroke='white' stroke-width='5'/><circle cx='11' cy='11' r='7.5' fill='none' stroke='%232640b5' stroke-width='2.6'/><path d='M7.5 9.5 A4 4 0 0 1 10 7' fill='none' stroke='white' stroke-width='1.4' stroke-linecap='round'/></svg>") 11 11, zoom-in; }
+.mk:focus-visible { outline: 2px solid var(--pen); outline-offset: 2px; }
+.float-note {
+  position: absolute; z-index: 20;
+  font: 400 1.06rem/1.34 var(--f-hand); color: var(--pen);
+  background: var(--paper); padding: .25rem .45rem; border-radius: 6px;
+  animation: noteIn .18s ease-out;
+}
+.float-note[data-side="right"] { transform: rotate(-.8deg); }
+.float-note[data-side="below"] {
+  background: var(--card); border: 1px solid var(--rule); border-radius: 10px;
+  padding: .6rem .8rem; box-shadow: 0 8px 24px rgba(0, 0, 0, .1);
+}
+.float-note s { text-decoration-thickness: 2px; }
+.float-note .note-img { display: block; width: 100%; height: auto; margin-top: .45rem; border-radius: 6px; border: 1px solid var(--rule); background: #fff; }
+.float-note .ref {
+  border: 0; background: none; padding: 0; color: inherit; font: inherit;
+  text-decoration: underline; text-underline-offset: 3px; cursor: pointer;
+}
+/* text that only exists in Supplementary: printed, but in pen blue */
+.txt .mine-only { color: var(--pen); color: color-mix(in srgb, var(--pen) 82%, var(--muted)); }
+@keyframes noteIn { from { opacity: 0; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .float-note { animation: none; } }
+</style>
+</head>
+<body>
+<div class="page" id="page">
+  <div class="float-note" id="floatNote" role="note" hidden></div>
+
+  <nav class="index" aria-label="Page index">
+    <div class="index-sec">
+      <a href="#h-research">Research</a>
+      <a href="#h-pubs">Publications</a>
+      <a href="#h-skills">Skills</a>
+      <a href="#h-education">Education</a>
+      <a href="#h-honors">Honors</a>
+    </div>
+    <div class="index-me" id="profileLinks"></div>
+  </nav>
+
+  <header class="top">
+    <div>
+      <h1 class="print">Jiagen Geng</h1>
+      <p class="affil print">Ph.D. student in Environmental Engineering at Michigan State University, advised by <a class="doi" href="https://shiqiangzou.com/" target="_blank" rel="noopener">Dr. Shiqiang (Nick) Zou</a>.</p>
+      <div class="bio">
+        <p class="intro lead print formal-only">I work on organic pollutants that shouldn't be in water: where they end up, and how to get them out, these days with electrochemistry.</p>
+        <p class="intro lead print mine-only">First antibiotics, now chemicals from car tires. Doctors yell “Clear!” and shock people back to life. I yell <a class="clear-link" href="https://www.linkedin.com/posts/dr-shiqiang-nick-zou-assistant-professor-share-7480246963242754048-OMmO/" target="_blank" rel="noopener" title="CLEAR: our EPA-funded project">“CLEAR!”</a> and shock pollutants out of water. Still working on the title.</p>
+      </div>
+      <div class="controls">
+        <div class="ver" role="group" aria-label="Which version to show">
+          <button type="button" data-ver="formal" aria-pressed="true">Main text</button>
+          <button type="button" data-ver="mine" aria-pressed="false">Supplementary</button>
+        </div>
+      </div>
+    </div>
+    <div class="side">
+    <img class="headshot formal-only" src="headshot.jpg" alt="Portrait of Jiagen Geng" width="643" height="900">
+    <button class="sign mine-only" id="signBtn" type="button" aria-haspopup="dialog" aria-controls="logDialog">
+      <span class="sign-head">NOTICE</span>
+      <span class="sign-body">
+        <span class="sign-small">This lab has gone</span>
+        <span class="sign-num" id="daysNum">--</span>
+        <span class="sign-small">days without hurting a $500 platinum electrode</span>
+        <span class="sign-foot">Tap for the incident log</span>
+      </span>
+    </button>
+    </div>
+  </header>
+
+  <div class="work" id="work">
+  <section aria-labelledby="h-research">
+    <div class="sec-head"><h2 id="h-research" class="print">Research</h2><span class="margin-label">hover the blue marks</span></div>
+
+    <div class="row">
+      <div class="txt print">
+        <span class="label">Ph.D. · tire wear particles</span>
+        <p>Tire wear particles release <abbr data-full="N-(1,3-dimethylbutyl)-N′-phenyl-p-phenylenediamine" tabindex="0">6PPD</abbr>, an antioxidant in nearly every tire. Its ozonation product, <span class="mk under" data-n="sixq">6PPD-quinone</span>, reaches streams in stormwater and is acutely lethal to coho salmon. I develop electrochemical strategies to remove both, built around modular, electrified treatment units.</p>
+      </div>
+      <div class="note"></div>
+    </div>
+
+    <div class="row">
+      <div class="txt print">
+        <span class="label">M.S. · antibiotics</span>
+        <p>Antibiotics from farming and medicine end up in rivers, soils and the crops grown on them. I studied where they accumulate and what risks they pose, and how to degrade them with modified biochar-catalyzed and UV-based advanced oxidation, including how dissolved organic matter changes its efficiency.<span class="mine-only"> I quantified norfloxacin by HPLC, on an <span class="mk circle" data-n="age">Agilent 1100</span> almost as old as I am.</span></p>
+      </div>
+      <div class="note"></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="h-pubs">
+    <div class="sec-head"><h2 id="h-pubs" class="print">Publications</h2><span class="margin-label"></span></div>
+
+    <div class="row">
+      <div class="txt print pub">
+        <span class="label">2026</span>
+        <a class="toc" href="https://doi.org/10.1016/j.jhazmat.2026.143151" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><img src="toc-jhm.jpg" alt="" loading="lazy"></a>
+        <p class="meta"><i>Journal of Hazardous Materials</i> · first author</p>
+        <p><a class="doi" href="https://doi.org/10.1016/j.jhazmat.2026.143151" target="_blank" rel="noopener">Structure-dependent selective adsorption and removal of 6PPD and 6PPD-quinone in <span class="mk circle" data-n="ec">chloride-enabled</span> aluminum electrocoagulation.</a></p>
+      </div>
+      <div class="note"></div>
+    </div>
+
+    <div class="row">
+      <div class="txt print pub">
+        <span class="label">2025</span>
+        <a class="toc" href="https://doi.org/10.1016/j.cclet.2024.110138" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><img src="toc-ccl.jpg" alt="" loading="lazy"></a>
+        <p class="meta"><i>Chinese Chemical Letters</i></p>
+        <p><a class="doi" href="https://doi.org/10.1016/j.cclet.2024.110138" target="_blank" rel="noopener">Current advances in UV-based advanced oxidation processes for the abatement of fluoroquinolone antibiotics in wastewater.</a></p>
+      </div>
+      <div class="note"></div>
+    </div>
+
+    <div class="row">
+      <div class="txt print pub">
+        <span class="label">2023</span>
+        <a class="toc" href="https://doi.org/10.19674/j.cnki.issn1000-6923.20221014.001" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><img src="toc-ces.jpg" alt="" loading="lazy"></a>
+        <p class="meta"><i>China Environmental Science</i> · in Chinese</p>
+        <p><a class="doi" href="https://doi.org/10.19674/j.cnki.issn1000-6923.20221014.001" target="_blank" rel="noopener">Effects of different fertilization regimes on antibiotics and antibiotic resistance genes in greenhouse vegetable soil.</a></p>
+      </div>
+      <div class="note"></div>
+    </div>
+
+    <div class="row">
+      <div class="txt print pub">
+        <span class="label">2022</span>
+        <a class="toc" href="https://doi.org/10.1016/j.scitotenv.2022.158616" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><img src="toc-stoten.jpg" alt="" loading="lazy"></a>
+        <p class="meta"><i>Science of the Total Environment</i> · first author</p>
+        <p><a class="doi" href="https://doi.org/10.1016/j.scitotenv.2022.158616" target="_blank" rel="noopener">Accumulation and risk assessment of antibiotics in edible plants grown in contaminated farmlands: A review.</a></p>
+      </div>
+      <div class="note"></div>
+    </div>
+
+    <div class="row">
+      <div class="txt print pub">
+        <span class="label">2022</span>
+        <a class="toc" href="https://doi.org/10.1360/nso/20220029" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><img src="toc-nso.jpg" alt="" loading="lazy"></a>
+        <p class="meta"><i>National Science Open</i></p>
+        <p><a class="doi" href="https://doi.org/10.1360/nso/20220029" target="_blank" rel="noopener">Antibiotics in global rivers.</a></p>
+      </div>
+      <div class="note"></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="h-skills">
+    <div class="sec-head"><h2 id="h-skills" class="print">Skills</h2><span class="margin-label"></span></div>
+
+    <div class="row">
+      <div class="txt print">
+        <span class="label">Environmental analysis</span>
+        <p><abbr data-full="High-performance liquid chromatography" tabindex="0">HPLC</abbr> and <abbr data-full="Liquid chromatography–tandem mass spectrometry" tabindex="0">LC-MS/MS</abbr> (Agilent 1100/1260/1290, Waters triple quadrupole), <abbr data-full="Ultraviolet–visible spectroscopy" tabindex="0">UV-Vis</abbr>, <abbr data-full="Enzyme-linked immunosorbent assay" tabindex="0">ELISA</abbr>, <abbr data-full="Ion chromatography" tabindex="0">IC</abbr>, <abbr data-full="Total organic carbon" tabindex="0">TOC</abbr> and standard water-quality tests.</p>
+      </div>
+      <div class="note"></div>
+    </div>
+
+    <div class="row">
+      <div class="txt print">
+        <span class="label">Electrochemistry</span>
+        <p>Bio-Logic potentiostats: voltammetry (<abbr data-full="Cyclic voltammetry" tabindex="0">CV</abbr>, <abbr data-full="Linear sweep voltammetry" tabindex="0">LSV</abbr>), impedance (<abbr data-full="Electrochemical impedance spectroscopy" tabindex="0">EIS</abbr>), chronoamperometry and chronopotentiometry (CA, CP) and galvanostatic charge–discharge (GCD).</p>
+      </div>
+      <div class="note"></div>
+    </div>
+
+    <div class="row">
+      <div class="txt print">
+        <span class="label">Materials characterization</span>
+        <p><abbr data-full="Fourier-transform infrared spectroscopy" tabindex="0">FTIR</abbr> and <abbr data-full="Electron paramagnetic resonance" tabindex="0">EPR</abbr>.</p>
+      </div>
+      <div class="note"></div>
+    </div>
+
+    <div class="row">
+      <div class="txt print">
+        <span class="label">Programming</span>
+        <p><span class="mk circle" data-n="python">Python</span>, <span class="mk under" data-n="matlab">MATLAB</span> and <span class="mk circle" data-n="rlang">R</span>.</p>
+      </div>
+      <div class="note"></div>
+    </div>
+
+    <div class="row">
+      <div class="txt print">
+        <span class="label">Computational chemistry</span>
+        <p><span class="mk circle" data-n="dft"><abbr data-full="Density functional theory" tabindex="0">DFT</abbr> (ORCA, CP2K)</span> and molecular dynamics (Materials Studio).</p>
+      </div>
+      <div class="note"></div>
+    </div>
+
+    <div class="row">
+      <div class="txt print">
+        <span class="label">Process modeling &amp; design</span>
+        <p>SUMO (wastewater process simulation) and <span class="mk under" data-n="cad">AutoCAD</span>.</p>
+      </div>
+      <div class="note"></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="h-education">
+    <div class="sec-head"><h2 id="h-education" class="print">Education</h2><span class="margin-label"></span></div>
+
+    <div class="row">
+      <div class="txt print">
+        <span class="label">Ph.D. · 2023–present</span>
+        <p>Michigan State University, East Lansing, Michigan.</p>
+        <p class="aside">Started at Auburn University in Auburn, Alabama, and <span class="mk under" data-n="drive">moved with my advisor</span> in 2025.</p>
+      </div>
+      <div class="note"></div>
+    </div>
+
+    <div class="row">
+      <div class="txt print">
+        <span class="label">M.S. · 2021–2023</span>
+        <p>China Agricultural University, Beijing, China.</p>
+      </div>
+      <div class="note"></div>
+    </div>
+
+    <div class="row">
+      <div class="txt print">
+        <span class="label">B.S. · 2017–2021</span>
+        <p>Hebei University of Technology, Tianjin, China.</p>
+      </div>
+      <div class="note"></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="h-honors">
+    <div class="sec-head"><h2 id="h-honors" class="print">Honors</h2><span class="margin-label"></span></div>
+
+    <div class="row">
+      <div class="txt print">
+        <span class="label">2026</span>
+        <p>Certificate of Merit, ACS Division of Environmental Chemistry, ACS Fall 2026.</p>
+      </div>
+      <div class="note"></div>
+    </div>
+
+    <div class="row">
+      <div class="txt print">
+        <span class="label">2026–2027</span>
+        <p>Clifford Humphrys Fellowship, Michigan State University.</p>
+      </div>
+      <div class="note"></div>
+    </div>
+
+    <div class="row">
+      <div class="txt print">
+        <span class="label">2023–2025</span>
+        <p>Charles E. Gavin Fellowship, Auburn University.</p>
+      </div>
+      <div class="note"></div>
+    </div>
+  </section>
+
+  <footer class="print">Jiagen Geng · East Lansing, Michigan<span class="mine-only"> · Notes in blue are mine.</span></footer>
+  </div>
+</div>
+
+<dialog id="logDialog" aria-labelledby="logTitle">
+  <div class="log-head">
+    <div>
+      <h3 id="logTitle">Incident log</h3>
+      <p>Only incidents involving the platinum reset the counter.</p>
+    </div>
+    <button class="x" id="closeLog" type="button">Close</button>
+  </div>
+  <ol class="log" id="logList"></ol>
+</dialog>
+
+<script>
+/* ============================================================
+   EDIT HERE. Everything Jiagen updates lives in this block.
+   Notes: ~~text~~ strikes text out, [#3] links to incident 3, [text](https://…) makes a link,
+   ![alt text](file.png) shows an image.
+   ============================================================ */
+const DATA = {
+  // Profile links in the top bar. Leave a value empty to hide it.
+  links: {
+    cv: "Jiagen_Geng_CV.pdf",
+    linkedin: "https://www.linkedin.com/in/jiagen-geng",
+    scholar: "https://scholar.google.com/citations?user=gjA9QGMAAAAJ&hl=en",
+    email: "gengjiag@msu.edu"
+  },
+
+  notes: {
+    sixq: "First identified in 2020 as the cause of urban coho salmon die-offs. EPA keeps an overview [here](https://www.epa.gov/chemical-research/6ppd-quinone).",
+    age: "Its unofficial repair technician. Very character-building. See [#1].",
+    python: "Before GPT and Claude became my tutors: learned in CHEN 6970, Big Data Analytics and Machine Learning in Process Industry, taught by Dr. Peter He at Auburn.",
+    matlab: "Mainly for parallel factor analysis (PARAFAC), to identify the fluorescent components of DOM. Learned a lot from [this Zhihu column](https://www.zhihu.com/column/c_1416178979749867520).\n![Four PARAFAC components, C1 to C4, as excitation–emission contour maps made in MATLAB](parafac-web.jpg)",
+    rlang: "Mostly for plotting, plus some statistical analysis.\n![A bubble chart made in R; axis labels and legend blurred](r-bubble-web.jpg)",
+    dft: "Learned in MSE 880A, Atomistic & Quantum Simulation, at MSU, taught by [Dr. Mendoza](https://www.egr.msu.edu/~jmendoza/).",
+    cad: "Designed a whole A²O wastewater treatment plant in it, all by myself! Senior design project, though. It has only ever treated imaginary wastewater.",
+    ec: "Chloride is usually the troublemaker in electrochemical water treatment. Here it helps the aluminum dissolve.",
+    drive: "Same project, more snow."
+  },
+
+  // Newest first. resetsCounter: true for platinum incidents.
+  incidents: [
+    { id: 2, date: "2026-09-10", title: "The missing decimal point", resetsCounter: true,
+      problem: "Meant to step to 0.3 V and typed 3 V. The platinum counter electrode came out with a colored film.",
+      troubleshooting: "The stainless steel mesh on the working electrode side had most likely dissolved and plated onto the platinum. Soaking the wire in nitric acid did nothing, and neither did the ultrasonic bath.",
+      solution: "On advice from [Dr. David](https://www.researchgate.net/scientific-contributions/D-Ricardo-Martinez-Vargas-2192521619) and Google: one CV cycle in 0.5 M H₂SO₄ (−0.2 to 1.2 V, 50 mV/s) stripped the film clean.",
+      lesson: "The cure for bad electrochemistry: more electrochemistry.",
+      img: "pt-electrode.jpg", caption: "Exhibit B: the patient, before treatment.",
+      alt: "A coiled platinum wire counter electrode covered in a brown film, held in a gloved hand over a lab bench." },
+    { id: 1, date: "2021–2023", title: "The pressure won't build", resetsCounter: false,
+      problem: "At 1 mL/min the Agilent 1100's pressure dropped as low as 5 bar, or rippled like a seismograph.",
+      troubleshooting: "Low column pressure usually means a leak or the pump. Checked the flow path for leaks first, then moved on to the pump. New piston seals and a new active inlet valve cartridge fixed it, for a while.",
+      solution: "When the pressure dropped again, I replaced the whole pump head with one transplanted from a retired HPLC.",
+      lesson: "I photographed every pressure trace. Together they look like a mood chart.",
+      img: "hplc-pressure.jpg", caption: "Exhibit A: the mood chart.",
+      alt: "Nine phone photos of the Agilent 1100 pump screen, with pressure traces that range from flat and far too low to noisy, jagged ripples." }
+  ],
+
+  // Things I found out that had nothing to do with my thesis. Feeds the "Today I didn't know" sticky note.
+  // The sticky note is switched off for now. To bring it back, paste this right before <footer> in the page:
+  //   <section class="curious" aria-label="Today I didn't know">
+  //     <div class="sticky" id="sticky">
+  //       <p class="k">Today I didn't know</p>
+  //       <p class="q" id="qText"></p>
+  //       <p class="a" id="aText" hidden></p>
+  //       <div class="btns">
+  //         <button class="chip" id="revealBtn" type="button">Show what I found out</button>
+  //         <button class="chip" id="nextBtn" type="button">Another one</button>
+  //       </div>
+  //     </div>
+  //   </section>
+  questions: [
+    { q: "What does a Hasidic fur hat actually look like?",
+      a: "It's a shtreimel: a wide, flat disc of fur around a black velvet cap, often made from dozens of tails. Worn on Shabbat, holidays and at weddings, in many communities only by married men." },
+    { q: "Is Milli-Q a type of water or a brand?",
+      a: "A brand that became a grade, the way Kleenex became tissue: Type 1 ultrapure water, 18.2 MΩ·cm." },
+    { q: "What is Brillouin microscopy?",
+      a: "A label-free way to map how stiff something is, from tiny GHz frequency shifts in scattered laser light. The catch: in wet samples, water content can dominate the signal." },
+    { q: "Turnip or rutabaga?",
+      a: "Turnip: smaller, white flesh, purple top. Rutabaga (a.k.a. swede): a turnip × cabbage cross, bigger, yellow flesh, sweeter." }
+  ]
+};
+/* ======================= end of edit block ======================= */
+
+(function () {
+  const $ = (s, r = document) => r.querySelector(s);
+  const esc = s => s.replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  const md = s => esc(s)
+    .replace(/!\[([^\]]*)\]\(([^)\s]+)\)/g, '<img class="note-img" src="$2" alt="$1">')
+    .replace(/\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g, '<a class="doi" href="$2" target="_blank" rel="noopener">$1</a>')
+    .replace(/~~(.+?)~~/g, "<s>$1</s>")
+    .replace(/\n/g, "<br>")
+    .replace(/\[#(\d+)\]/g, '<button class="ref" type="button" data-incident="$1">incident #$1</button>');
+
+  // profile links
+  const L = DATA.links || {};
+  const bits = [];
+  if (L.cv) bits.push(`<a href="${esc(L.cv)}" target="_blank" rel="noopener">CV</a>`);
+  if (L.linkedin) bits.push(`<a href="${esc(L.linkedin)}" target="_blank" rel="noopener">LinkedIn</a>`);
+  if (L.scholar) bits.push(`<a href="${esc(L.scholar)}" target="_blank" rel="noopener">Google Scholar</a>`);
+  if (L.email) bits.push(`<span class="mail"><span class="addr">${esc(L.email)}</span><button class="copy" type="button" id="copyMail">Copy</button></span>`);
+  $("#profileLinks").innerHTML = bits.join("");
+  const cm = $("#copyMail");
+  if (cm) cm.addEventListener("click", () => {
+    const done = () => { cm.textContent = "Copied"; setTimeout(() => { cm.textContent = "Copy"; }, 1500); };
+    const pick = () => { const r = document.createRange(); r.selectNodeContents($(".addr")); const sel = getSelection(); sel.removeAllRanges(); sel.addRange(r); };
+    try { navigator.clipboard.writeText(L.email).then(done, pick); } catch (e) { pick(); }
+  });
+
+  // margin notes: shown beside the text while a marked phrase is hovered, focused or tapped
+  const fl = $("#floatNote");
+  let hideT = 0, cur = null;
+  const hideNow = () => { clearTimeout(hideT); fl.hidden = true; if (cur) cur.classList.remove("hot"); cur = null; };
+  const hideSoon = () => { clearTimeout(hideT); hideT = setTimeout(hideNow, 350); };
+  const showNote = m => {
+    const text = DATA.notes[m.dataset.n];
+    if (!text || $("#page").classList.contains("formal")) return;
+    clearTimeout(hideT);
+    if (cur && cur !== m) cur.classList.remove("hot");
+    cur = m; m.classList.add("hot");
+    fl.innerHTML = md(text);
+    fl.hidden = false;
+    // a small card right under the phrase, so the mouse only has a short way to travel
+    const pr = $("#page").getBoundingClientRect();
+    const para = (m.closest("p") || m.closest(".txt") || m).getBoundingClientRect();
+    const rs = m.getClientRects();
+    const first = rs[0] || m.getBoundingClientRect();
+    const last = rs[rs.length - 1] || first;
+    const w = Math.min(para.width, 384);
+    const left = Math.max(para.left, Math.min(first.left - 8, para.right - w));
+    fl.dataset.side = "below";
+    fl.style.width = w + "px";
+    fl.style.left = (left - pr.left) + "px";
+    fl.style.top = (last.bottom - pr.top + 6) + "px";
+  };
+  document.querySelectorAll(".mk[data-n]").forEach(m => {
+    if (!DATA.notes[m.dataset.n]) return;
+    m.tabIndex = 0;
+    m.addEventListener("mouseenter", () => showNote(m));
+    m.addEventListener("mouseleave", hideSoon);
+    m.addEventListener("focus", () => showNote(m));
+    m.addEventListener("blur", hideSoon);
+    m.addEventListener("click", e => {
+      if ($("#page").classList.contains("formal")) return;
+      if (m.closest("a")) e.preventDefault();
+      if (cur === m && !fl.hidden) hideNow(); else showNote(m);
+    });
+  });
+  fl.addEventListener("mouseenter", () => clearTimeout(hideT));
+  fl.addEventListener("mouseleave", hideSoon);
+  document.addEventListener("click", e => { if (!e.target.closest(".mk, #floatNote")) hideNow(); });
+  document.addEventListener("keydown", e => { if (e.key === "Escape") hideNow(); });
+  window.addEventListener("resize", hideNow);
+
+  // counter
+  const parse = d => { const [y, m, dd] = d.split("-").map(Number); return new Date(y, m - 1, dd || 1); };
+  const resets = DATA.incidents.filter(i => i.resetsCounter).map(i => parse(i.date)).sort((a, b) => b - a);
+  const days = resets.length ? Math.max(0, Math.floor((new Date().setHours(0,0,0,0) - resets[0]) / 864e5)) : "∞";
+  $("#daysNum").textContent = days;
+
+  // incident log
+  const list = $("#logList");
+  list.innerHTML = DATA.incidents.map(i =>
+    `<li id="inc-${i.id}"><span class="when"><span>#${i.id}</span><span>${esc(i.date)}</span>${i.resetsCounter ? '<span class="tag reset">reset counter</span>' : '<span class="tag">no reset</span>'}</span>` +
+    `<h4>${esc(i.title)}</h4><dl class="steps"><dt>Problem</dt><dd>${md(i.problem)}</dd><dt>Troubleshooting</dt><dd>${md(i.troubleshooting)}</dd><dt>Solution</dt><dd>${md(i.solution)}</dd></dl>` +
+    (i.img ? `<figure class="exhibit"><img src="${esc(i.img)}" alt="${esc(i.alt || "")}" loading="lazy"><figcaption>${esc(i.caption || "")}</figcaption></figure>` : "") +
+    `<p class="lesson">${esc(i.lesson)}</p></li>`
+  ).join("");
+  const dlg = $("#logDialog");
+  const openLog = id => {
+    if (!dlg.open) { try { dlg.showModal(); } catch (e) { dlg.setAttribute("open", ""); } }
+    if (id) {
+      const li = document.getElementById("inc-" + id);
+      if (li) { li.scrollIntoView({ block: "center" }); li.classList.remove("flash"); void li.offsetWidth; li.classList.add("flash"); }
+    }
+  };
+  $("#signBtn").addEventListener("click", () => openLog());
+  $("#closeLog").addEventListener("click", () => dlg.close ? dlg.close() : dlg.removeAttribute("open"));
+  dlg.addEventListener("click", e => { if (e.target === dlg) dlg.close(); });
+  document.addEventListener("click", e => {
+    const b = e.target.closest("[data-incident]");
+    if (b) openLog(b.dataset.incident);
+  });
+
+  // didn't-know sticky (only when its markup is on the page; see the note in the edit block)
+  if ($("#qText")) {
+    let qi = Math.floor(Math.random() * DATA.questions.length);
+    const showQ = () => {
+      $("#qText").textContent = DATA.questions[qi].q;
+      $("#aText").textContent = DATA.questions[qi].a;
+      $("#aText").hidden = true;
+      $("#revealBtn").hidden = false;
+    };
+    $("#revealBtn").addEventListener("click", () => { $("#aText").hidden = false; $("#revealBtn").hidden = true; });
+    $("#nextBtn").addEventListener("click", () => { qi = (qi + 1) % DATA.questions.length; showQ(); });
+    showQ();
+  }
+
+  // version switch (remembered per viewer)
+  const verBtns = [...document.querySelectorAll(".ver button")];
+  const setVer = v => {
+    if (typeof hideNow === "function") hideNow();
+    $("#page").classList.toggle("formal", v === "formal");
+    verBtns.forEach(b => b.setAttribute("aria-pressed", String(b.dataset.ver === v)));
+    try { localStorage.setItem("ver", v); } catch (e) {}
+  };
+  let saved = "formal";
+  try { saved = localStorage.getItem("ver") || "formal"; } catch (e) {}
+  setVer(saved);
+  verBtns.forEach(b => b.addEventListener("click", () => setVer(b.dataset.ver)));
+
+})();
+</script>
+</body>
+</html>
