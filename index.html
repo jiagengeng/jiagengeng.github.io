@@ -580,7 +580,7 @@ dialog::backdrop { background: rgba(10, 14, 15, .45); }
     <div class="row">
       <div class="txt print">
         <span class="label">Computational chemistry</span>
-        <p><span class="mk circle" data-n="dft"><abbr data-full="Density functional theory" tabindex="0">DFT</abbr> (ORCA, CP2K)</span> and molecular dynamics (Materials Studio).</p>
+        <p><span class="mk under" data-n="dft"><abbr data-full="Density functional theory" tabindex="0">DFT</abbr> (ORCA, CP2K) and molecular dynamics (Materials Studio)</span>.</p>
       </div>
       <div class="note"></div>
     </div>
@@ -782,9 +782,11 @@ const DATA = {
     const first = rs[0] || m.getBoundingClientRect();
     const last = rs[rs.length - 1] || first;
     const w = Math.min(para.width, 384);
-    const left = Math.max(para.left, Math.min(first.left - 8, para.right - w));
     fl.dataset.side = "below";
-    fl.style.width = w + "px";
+    // short notes shrink to their text; notes with a picture keep the full width for it
+    fl.style.width = fl.querySelector("img") ? w + "px" : "max-content";
+    fl.style.maxWidth = w + "px";
+    const left = Math.max(para.left, Math.min(first.left - 8, para.right - fl.offsetWidth));
     fl.style.left = (left - pr.left) + "px";
     fl.style.top = (last.bottom - pr.top + 6) + "px";
   };
