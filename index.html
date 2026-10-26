@@ -13,7 +13,7 @@
 <title>Jiagen Geng</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Kalam:wght@400;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Roboto+Mono:wght@400;500;700&family=Kalam:wght@400;700&display=swap">
 <style>
 /* Layout: a lab notebook page. Printed text on the left, ballpoint margin notes on the right, aligned row by row. */
 :root {
@@ -29,7 +29,7 @@
 
   --f-display: "Instrument Sans", "Helvetica Neue", Arial, sans-serif;
   --f-body: "Instrument Sans", "Helvetica Neue", Arial, sans-serif;
-  --f-mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+  --f-mono: "Roboto Mono", ui-monospace, Menlo, monospace;
   --f-hand: "Kalam", "Comic Sans MS", "Bradley Hand", cursive;
 
   --margin-w: 17rem;
@@ -49,7 +49,7 @@
 body {
   background: var(--paper);
   color: var(--ink);
-  font: 400 1rem/1.6 var(--f-body);
+  font: 400 1.0625rem/1.6 var(--f-body);
   overflow-x: hidden;
 }
 /* section links glide to their heading instead of jumping */
@@ -58,7 +58,7 @@ html { scroll-behavior: smooth; }
 .page {
   max-width: 72rem;
   margin: 0 auto;
-  padding-block: 2.5rem 4rem;
+  padding-block: clamp(3.25rem, 7vw, 5.5rem) 4rem;
   padding-left: max(16px, env(safe-area-inset-left, 0px));
   padding-right: max(16px, env(safe-area-inset-right, 0px));
   display: grid;
@@ -69,7 +69,7 @@ button { font: inherit; color: inherit; }
 
 .index-me { display: flex; flex-wrap: wrap; align-items: center; gap: .4rem 1.1rem; min-width: 0; }
 /* ---------- profile links, at the bottom of the page ---------- */
-.contact { border-top: 1.5px solid var(--ink); padding-top: 1rem; font: 500 .85rem/1.3 var(--f-mono); gap: .6rem 1.4rem; }
+.contact { border-top: 1.5px solid var(--ink); padding-top: 1rem; font: 500 .92rem/1.3 var(--f-mono); gap: .6rem 1.4rem; }
 .contact a { color: var(--ink); text-decoration: none; }
 .contact a:hover { color: var(--pen); text-decoration: underline; text-underline-offset: 3px; }
 .index-me .mail { display: inline-flex; align-items: center; gap: .45rem; color: var(--muted); }
@@ -120,10 +120,10 @@ h1 {
 .intro sub { font-size: .7em; }
 .clear-link { color: inherit; text-decoration: none; }
 .clear-link:hover { text-decoration: underline; text-underline-offset: 3px; }
-.affil { margin: 0 0 1.1rem; max-width: 54ch; color: var(--ink); font: 400 clamp(1.08rem, 1.7vw, 1.16rem)/1.45 var(--f-body); }
+.affil { margin: 0 0 1.1rem; max-width: 54ch; color: var(--ink); font: 400 clamp(1.15rem, 1.8vw, 1.25rem)/1.45 var(--f-body); }
 .bio { display: grid; gap: .8rem; max-width: 60ch; }
 .bio .intro { font-size: 1.08rem; line-height: 1.6; }
-.bio .lead { font: 400 clamp(1.08rem, 1.7vw, 1.16rem)/1.45 var(--f-body); color: var(--ink); max-width: 54ch; text-wrap: pretty; }
+.bio .lead { font: 400 clamp(1.15rem, 1.8vw, 1.25rem)/1.45 var(--f-body); color: var(--ink); max-width: 54ch; text-wrap: pretty; }
 /* both intros share one slot, sized to the taller one, so switching versions moves nothing below */
 .bio > .intro { grid-area: 1 / 1; align-self: start; }
 #page.formal .bio .mine-only, #page:not(.formal) .bio .formal-only { display: block; visibility: hidden; }
@@ -210,7 +210,7 @@ h1 {
 .sign-body { padding: .7rem .85rem .85rem; display: grid; gap: .15rem; }
 .sign-small { font: 600 .8rem/1.25 var(--f-display); }
 .sign-num {
-  font: 700 3.4rem/1 var(--f-display); letter-spacing: -.04em;
+  font: 700 3.4rem/1 var(--f-mono); letter-spacing: -.02em;
   font-variant-numeric: tabular-nums;
 }
 .sign-foot { font: 500 .7rem/1.3 var(--f-mono); margin-top: .35rem; opacity: .8; }
@@ -228,7 +228,7 @@ section { display: grid; gap: .25rem; }
   align-items: end; border-bottom: 1.5px solid var(--ink); padding-bottom: .5rem; margin-bottom: .5rem;
 }
 h2 {
-  font: 700 1.05rem/1.2 var(--f-mono); letter-spacing: .01em; margin: 0;
+  font: 700 1.12rem/1.2 var(--f-mono); letter-spacing: .01em; margin: 0;
 }
 .margin-label { font: 400 .95rem/1.2 var(--f-hand); color: var(--pen); }
 
@@ -239,18 +239,18 @@ h2 {
 }
 .row .txt { min-width: 0; max-width: 62ch; }
 .row .label {
-  font: 500 .76rem/1.3 var(--f-mono); color: var(--muted);
+  font: 500 .82rem/1.3 var(--f-mono); color: var(--muted);
   display: block; margin-bottom: .2rem;
 }
 .row p { margin: 0; }
 .row .txt p + p { margin-top: .3rem; }
-.row .txt .aside { font-size: .9rem; color: var(--muted); }
+.row .txt .aside { font-size: .95rem; color: var(--muted); }
 .skill-list { display: grid; grid-template-columns: 11.5rem minmax(0, 1fr); gap: .45rem 1rem; margin: .15rem 0 0; }
-.skill-list dt { font: 500 .76rem/1.9 var(--f-mono); color: var(--muted); }
+.skill-list dt { font: 500 .82rem/1.9 var(--f-mono); color: var(--muted); }
 .skill-list dd { margin: 0; }
 @media (max-width: 560px) { .skill-list { grid-template-columns: minmax(0, 1fr); gap: .05rem; } .skill-list dd { margin-bottom: .45rem; } }
 .row .title { font-weight: 700; }
-.row .meta { color: var(--muted); font-size: .92rem; }
+.row .meta { color: var(--muted); font-size: .97rem; }
 
 .note { min-width: 0; display: grid; gap: .9rem; align-content: start; padding-top: .1rem; }
 .note-text {
@@ -293,7 +293,7 @@ h2 {
   transform: rotate(-.8deg);
   display: grid; gap: .55rem;
 }
-.sticky .k { font: 500 .76rem/1.3 var(--f-mono); color: var(--pen); margin: 0; }
+.sticky .k { font: 500 .82rem/1.3 var(--f-mono); color: var(--pen); margin: 0; }
 .sticky .q { font: 700 1.2rem/1.3 var(--f-display); margin: 0; text-wrap: balance; }
 .sticky .a { font: 400 1.08rem/1.38 var(--f-hand); color: var(--pen); margin: 0; }
 .sticky .btns { display: flex; gap: .6rem; flex-wrap: wrap; margin-top: .2rem; }
@@ -310,7 +310,7 @@ h2 {
 .allq { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: .9rem; }
 .allq .sticky { transform: rotate(var(--r, 0deg)); max-width: none; }
 
-footer { color: var(--muted); font: 400 .8rem/1.5 var(--f-mono); }
+footer { color: var(--muted); font: 400 .86rem/1.5 var(--f-mono); }
 
 /* ---------- falling ---------- */
 .print {
@@ -357,7 +357,7 @@ dialog::backdrop { background: rgba(10, 14, 15, .45); }
 .log p { margin: 0; }
 .log .lesson { font: 400 1.05rem/1.35 var(--f-hand); color: var(--pen); }
 .log .steps { display: grid; grid-template-columns: 8.5rem minmax(0, 1fr); gap: .35rem .9rem; margin: .2rem 0; }
-.log .steps dt { font: 500 .76rem/1.6 var(--f-mono); color: var(--muted); }
+.log .steps dt { font: 500 .82rem/1.6 var(--f-mono); color: var(--muted); }
 .log .steps dd { margin: 0; }
 @media (max-width: 560px) { .log .steps { grid-template-columns: minmax(0, 1fr); gap: .1rem; } .log .steps dd { margin-bottom: .4rem; } }
 .log .exhibit { margin: .4rem 0 .1rem; display: grid; gap: .3rem; justify-items: center; text-align: center; }
@@ -399,7 +399,7 @@ dialog::backdrop { background: rgba(10, 14, 15, .45); }
 .mk:focus-visible { outline: 2px solid var(--pen); outline-offset: 2px; }
 .float-note {
   position: absolute; z-index: 20;
-  font: 400 1.06rem/1.34 var(--f-hand); color: var(--pen);
+  font: 400 1.12rem/1.34 var(--f-hand); color: var(--pen);
   background: var(--paper); padding: .25rem .45rem; border-radius: 6px;
   animation: noteIn .18s ease-out;
 }
