@@ -87,6 +87,8 @@ button { font: inherit; color: inherit; }
 .index-me .copy:hover { border-color: var(--pen); color: var(--pen); }
 h2 { scroll-margin-top: 4.5rem; }
 abbr[data-full] { position: relative; text-decoration: underline dotted; text-decoration-color: var(--muted); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+.no-tips abbr[data-full]::after { display: none !important; }
 abbr[data-full]:hover::after, abbr[data-full]:focus-visible::after {
   content: attr(data-full); position: absolute; left: 0; top: calc(100% + 6px); z-index: 30;
   width: max-content; max-width: min(20rem, 80vw); white-space: normal;
@@ -94,7 +96,7 @@ abbr[data-full]:hover::after, abbr[data-full]:focus-visible::after {
   font: 500 .74rem/1.35 var(--f-mono); letter-spacing: 0; text-transform: none; pointer-events: none;
 }
 #page:not(.formal) .mk abbr[data-full]::after { display: none; }
-a.doi { color: inherit; text-decoration: underline; text-decoration-color: var(--rule); text-underline-offset: 3px; }
+a.doi { color: inherit; text-decoration: underline; text-decoration-color: var(--muted); text-decoration-thickness: 1px; text-underline-offset: 3px; }
 a.doi:hover { color: var(--pen); text-decoration-color: var(--pen); }
 
 /* ---------- header ---------- */
@@ -124,8 +126,8 @@ h1 {
 }
 .intro { max-width: 60ch; color: var(--ink); margin: 0; }
 .intro sub { font-size: .7em; }
-.clear-link { color: inherit; text-decoration: none; }
-.clear-link:hover { text-decoration: underline; text-underline-offset: 3px; }
+.clear-link { color: inherit; text-decoration: underline; text-decoration-color: var(--muted); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+.clear-link:hover { color: var(--pen); text-decoration-color: var(--pen); }
 .affil { margin: 0 0 1.1rem; max-width: 54ch; color: var(--ink); font: 400 clamp(1.15rem, 1.8vw, 1.25rem)/1.45 var(--f-body); }
 .bio { display: grid; gap: .8rem; max-width: 60ch; }
 .bio .intro { font-size: 1.08rem; line-height: 1.6; }
@@ -429,6 +431,7 @@ dialog::backdrop { background: rgba(10, 14, 15, .45); }
 <body>
 <div class="page" id="page">
   <div class="float-note" id="floatNote" role="note" hidden></div>
+  <div class="sr-only" id="noteLive" aria-live="polite"></div>
 
 
   <header class="top">
@@ -690,28 +693,30 @@ const DATA = {
   if (L.cv) bits.push(`<a href="${esc(L.cv)}" target="_blank" rel="noopener">CV</a>`);
   if (L.linkedin) bits.push(`<a href="${esc(L.linkedin)}" target="_blank" rel="noopener">LinkedIn</a>`);
   if (L.scholar) bits.push(`<a href="${esc(L.scholar)}" target="_blank" rel="noopener">Google Scholar</a>`);
-  if (L.email) bits.push(`<span class="mail"><span class="addr">${esc(L.email)}</span><button class="copy" type="button" id="copyMail">Copy</button></span>`);
+  if (L.email) bits.push(`<span class="mail"><span class="addr">${esc(L.email)}</span><button class="copy" type="button" id="copyMail">Copy</button><span class="sr-only" id="copyStatus" role="status"></span></span>`);
   $("#profileLinks").innerHTML = bits.join("");
   const cm = $("#copyMail");
   if (cm) cm.addEventListener("click", () => {
-    const done = () => { cm.textContent = "Copied"; setTimeout(() => { cm.textContent = "Copy"; }, 1500); };
-    const pick = () => { const r = document.createRange(); r.selectNodeContents($(".addr")); const sel = getSelection(); sel.removeAllRanges(); sel.addRange(r); };
+    const done = () => { cm.textContent = "Copied"; $("#copyStatus").textContent = "Email copied"; setTimeout(() => { cm.textContent = "Copy"; $("#copyStatus").textContent = ""; }, 1500); };
+    const pick = () => { const r = document.createRange(); r.selectNodeContents($(".addr")); const sel = getSelection(); sel.removeAllRanges(); sel.addRange(r); $("#copyStatus").textContent = "Email address selected; press Command or Control plus C to copy"; };
     try { navigator.clipboard.writeText(L.email).then(done, pick); } catch (e) { pick(); }
   });
 
   // margin notes: shown beside the text while a marked phrase is hovered, focused or tapped
   const fl = $("#floatNote");
   let hideT = 0, cur = null;
-  const hideNow = () => { clearTimeout(hideT); fl.hidden = true; if (cur) cur.classList.remove("hot"); cur = null; };
+  const hideNow = () => { clearTimeout(hideT); fl.hidden = true; if (cur) { cur.classList.remove("hot"); if (cur.hasAttribute("aria-expanded")) cur.setAttribute("aria-expanded", "false"); } cur = null; };
   const hideSoon = () => { clearTimeout(hideT); hideT = setTimeout(hideNow, 350); };
   const showNote = m => {
     const text = DATA.notes[m.dataset.n];
     if (!text || $("#page").classList.contains("formal")) return;
     clearTimeout(hideT);
-    if (cur && cur !== m) cur.classList.remove("hot");
+    if (cur && cur !== m) { cur.classList.remove("hot"); if (cur.hasAttribute("aria-expanded")) cur.setAttribute("aria-expanded", "false"); }
     cur = m; m.classList.add("hot");
+    if (m.hasAttribute("aria-expanded")) m.setAttribute("aria-expanded", "true");
     fl.innerHTML = md(text);
     fl.hidden = false;
+    $("#noteLive").textContent = "Note: " + fl.textContent;
     // a small card right under the phrase, so the mouse only has a short way to travel
     const pr = $("#page").getBoundingClientRect();
     const para = (m.closest("p") || m.closest(".txt") || m).getBoundingClientRect();
@@ -727,9 +732,34 @@ const DATA = {
     fl.style.left = (left - pr.left) + "px";
     fl.style.top = (last.bottom - pr.top + 6) + "px";
   };
-  document.querySelectorAll(".mk[data-n]").forEach(m => {
-    if (!DATA.notes[m.dataset.n]) return;
-    m.tabIndex = 0;
+  document.querySelectorAll("abbr[data-full]").forEach(a => {
+    const full = document.createElement("span");
+    full.className = "sr-only"; full.textContent = ` (${a.dataset.full})`;
+    a.after(full);
+    if (a.closest(".mk")) a.removeAttribute("tabindex");   // no focus stop inside a note button
+  });
+  document.addEventListener("keydown", e => { if (e.key === "Escape") document.documentElement.classList.add("no-tips"); });
+  const tipsBack = () => document.documentElement.classList.remove("no-tips");
+  document.addEventListener("mouseover", tipsBack);
+  document.addEventListener("focusin", tipsBack);
+
+  // in Supplementary a marked phrase is a button that opens its note; in Main text it is plain text.
+  // A phrase inside a link stays part of the link (no button inside a link), so it opens by pointer only.
+  const marks = [...document.querySelectorAll(".mk[data-n]")].filter(m => DATA.notes[m.dataset.n]);
+  const syncMarks = formal => marks.forEach(m => {
+    if (formal || m.closest("a")) {
+      m.removeAttribute("tabindex"); m.removeAttribute("role"); m.removeAttribute("aria-expanded"); m.removeAttribute("aria-controls");
+    } else {
+      m.tabIndex = 0; m.setAttribute("role", "button"); m.setAttribute("aria-expanded", "false"); m.setAttribute("aria-controls", "floatNote");
+    }
+  });
+  marks.forEach(m => {
+    m.addEventListener("keydown", e => {
+      if ((e.key === "Enter" || e.key === " ") && m.getAttribute("role") === "button") {
+        e.preventDefault();
+        if (cur === m && !fl.hidden) hideNow(); else showNote(m);
+      }
+    });
     m.addEventListener("mouseenter", () => showNote(m));
     m.addEventListener("mouseleave", hideSoon);
     m.addEventListener("focus", () => showNote(m));
@@ -795,6 +825,7 @@ const DATA = {
   const setVer = v => {
     if (typeof hideNow === "function") hideNow();
     $("#page").classList.toggle("formal", v === "formal");
+    syncMarks(v === "formal");
     verBtns.forEach(b => b.setAttribute("aria-pressed", String(b.dataset.ver === v)));
     try { localStorage.setItem("ver", v); } catch (e) {}
   };
