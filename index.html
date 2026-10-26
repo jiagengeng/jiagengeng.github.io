@@ -52,6 +52,9 @@ body {
   font: 400 1rem/1.6 var(--f-body);
   overflow-x: hidden;
 }
+/* section links glide to their heading instead of jumping */
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 .page {
   max-width: 72rem;
   margin: 0 auto;
@@ -64,17 +67,11 @@ body {
 button { font: inherit; color: inherit; }
 :focus-visible { outline: 2px solid var(--pen); outline-offset: 3px; border-radius: 4px; }
 
-/* ---------- index bar ---------- */
-.index {
-  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 10;
-  display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: .5rem 1.5rem;
-  background: var(--paper); border-bottom: 1px solid var(--rule);
-  padding-block: .7rem; margin-bottom: -1.5rem;
-  font: 500 .8rem/1.3 var(--f-mono);
-}
-.index a { color: var(--ink); text-decoration: none; }
-.index a:hover { color: var(--pen); text-decoration: underline; text-underline-offset: 3px; }
-.index-sec, .index-me { display: flex; flex-wrap: wrap; align-items: center; gap: .4rem 1.1rem; min-width: 0; }
+.index-me { display: flex; flex-wrap: wrap; align-items: center; gap: .4rem 1.1rem; min-width: 0; }
+/* ---------- profile links, at the bottom of the page ---------- */
+.contact { border-top: 1.5px solid var(--ink); padding-top: 1rem; font: 500 .85rem/1.3 var(--f-mono); gap: .6rem 1.4rem; }
+.contact a { color: var(--ink); text-decoration: none; }
+.contact a:hover { color: var(--pen); text-decoration: underline; text-underline-offset: 3px; }
 .index-me .mail { display: inline-flex; align-items: center; gap: .45rem; color: var(--muted); }
 .index-me .addr { user-select: all; color: var(--ink); }
 .index-me .copy {
@@ -82,25 +79,6 @@ button { font: inherit; color: inherit; }
   padding: .1rem .55rem; font: 500 .72rem/1.3 var(--f-mono); color: var(--muted); cursor: pointer;
 }
 .index-me .copy:hover { border-color: var(--pen); color: var(--pen); }
-.collapsed .index-sec { display: none; }
-/* on a phone the bar folds into one Menu button */
-.menu-btn { display: none; }
-@media (max-width: 760px) {
-  .page .index { position: sticky; justify-content: flex-end; padding-block: .55rem; }
-  .menu-btn {
-    display: inline-flex; align-items: center; gap: .4rem; cursor: pointer;
-    border: 1px solid var(--rule); border-radius: 999px; background: var(--paper);
-    padding: .35rem .85rem; font: 500 .85rem/1.2 var(--f-mono); color: var(--ink);
-  }
-  .menu-btn .chev { transition: transform .2s; }
-  .index.open .menu-btn .chev { transform: rotate(180deg); }
-  .index .index-sec, .index .index-me { display: none; }
-  .index.open .index-sec, .index.open .index-me {
-    display: flex; flex-direction: column; align-items: flex-start; gap: .85rem;
-    width: 100%; padding: .4rem 0 .3rem; font-size: .95rem;
-  }
-  .index.open .index-me { border-top: 1px solid var(--rule); padding-top: .85rem; }
-}
 h2 { scroll-margin-top: 4.5rem; }
 abbr[data-full] { position: relative; text-decoration: underline dotted; text-decoration-color: var(--muted); text-decoration-thickness: 1px; text-underline-offset: 3px; }
 abbr[data-full]:hover::after, abbr[data-full]:focus-visible::after {
@@ -128,7 +106,7 @@ a.doi:hover { color: var(--pen); text-decoration-color: var(--pen); }
 h1 {
   font: 700 clamp(2.6rem, 7vw, 4.6rem)/.95 var(--f-display);
   letter-spacing: -.035em;
-  margin: 0 0 .8rem;
+  margin: 0 0 1.3rem;
   text-wrap: balance;
 }
 .hook {
@@ -142,7 +120,7 @@ h1 {
 .intro sub { font-size: .7em; }
 .clear-link { color: inherit; text-decoration: none; }
 .clear-link:hover { text-decoration: underline; text-underline-offset: 3px; }
-.affil { margin: 0 0 .8rem; max-width: 54ch; color: var(--ink); font: 400 clamp(1.08rem, 1.7vw, 1.16rem)/1.45 var(--f-body); }
+.affil { margin: 0 0 1.1rem; max-width: 54ch; color: var(--ink); font: 400 clamp(1.08rem, 1.7vw, 1.16rem)/1.45 var(--f-body); }
 .bio { display: grid; gap: .8rem; max-width: 60ch; }
 .bio .intro { font-size: 1.08rem; line-height: 1.6; }
 .bio .lead { font: 400 clamp(1.08rem, 1.7vw, 1.16rem)/1.45 var(--f-body); color: var(--ink); max-width: 54ch; text-wrap: pretty; }
@@ -174,6 +152,11 @@ h1 {
 #page:not(.formal) .side .headshot { display: block; visibility: hidden; }
 @media (max-width: 760px) { .headshot { max-width: 11rem; } }
 .controls { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1.6rem; align-items: center; }
+@media (min-width: 761px) {
+  .top { align-items: stretch; }
+  .top > div:first-child { display: flex; flex-direction: column; }
+  .top .controls { margin-top: auto; padding-top: 1.6rem; }
+}
 
 .switch {
   display: inline-flex; align-items: center; gap: .7rem;
@@ -389,7 +372,6 @@ dialog::backdrop { background: rgba(10, 14, 15, .45); }
   .sign { max-width: 17rem; transform: rotate(.8deg); }
   .margin-label { display: none; }
   .note { gap: .5rem; padding-top: 0; }
-  .index { position: static; }
   .note-text::before { content: "↑"; }
 }
 
@@ -442,16 +424,6 @@ dialog::backdrop { background: rgba(10, 14, 15, .45); }
 <div class="page" id="page">
   <div class="float-note" id="floatNote" role="note" hidden></div>
 
-  <nav class="index" aria-label="Page index">
-    <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false">Menu <span class="chev" aria-hidden="true">▾</span></button>
-    <div class="index-sec">
-      <a href="#h-research">Research</a>
-      <a href="#h-pubs">Publications</a>
-      <a href="#h-skills">Skills</a>
-      <a href="#h-education">Education</a>
-    </div>
-    <div class="index-me" id="profileLinks"></div>
-  </nav>
 
   <header class="top">
     <div>
@@ -484,11 +456,11 @@ dialog::backdrop { background: rgba(10, 14, 15, .45); }
 
   <div class="work" id="work">
   <section aria-labelledby="h-research">
-    <div class="sec-head"><h2 id="h-research" class="print">Research</h2><span class="margin-label">hover the blue marks</span></div>
+    <div class="sec-head"><h2 id="h-research" class="print">Research</h2><span class="margin-label"></span></div>
 
     <div class="row">
       <div class="txt print">
-        <span class="label">Ph.D. · Tire Wear Particles</span>
+        <span class="label">Ph.D. Tire Wear Particles</span>
         <p>Tire wear particles release <abbr data-full="N-(1,3-dimethylbutyl)-N′-phenyl-p-phenylenediamine" tabindex="0">6PPD</abbr>, an antioxidant in nearly every tire. Its ozonation product, <span class="mk under" data-n="sixq">6PPD-quinone</span>, reaches streams in stormwater and is acutely lethal to coho salmon. I develop electrochemical strategies to remove both, built around modular, electrified treatment units.</p>
       </div>
       <div class="note"></div>
@@ -496,7 +468,7 @@ dialog::backdrop { background: rgba(10, 14, 15, .45); }
 
     <div class="row">
       <div class="txt print">
-        <span class="label">M.S. · Antibiotics</span>
+        <span class="label">M.S. Antibiotics</span>
         <p>Antibiotics from farming and medicine end up in rivers, soils and the crops grown on them. I studied where they accumulate and what risks they pose, and how to degrade them with modified biochar-catalyzed and UV-based advanced oxidation, including how dissolved organic matter changes its efficiency.<span class="mine-only"> I quantified norfloxacin by HPLC, on an <span class="mk circle" data-n="age">Agilent 1100</span> almost as old as I am.</span></p>
       </div>
       <div class="note"></div>
@@ -510,7 +482,7 @@ dialog::backdrop { background: rgba(10, 14, 15, .45); }
       <div class="txt print pub">
         <span class="label">2026</span>
         <a class="toc" href="https://doi.org/10.1016/j.jhazmat.2026.143151" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><img src="toc-jhm.jpg" alt="" loading="lazy"></a>
-        <p class="meta"><i>Journal of Hazardous Materials</i> · first author</p>
+        <p class="meta">Journal of Hazardous Materials · <i>first author</i></p>
         <p><a class="doi" href="https://doi.org/10.1016/j.jhazmat.2026.143151" target="_blank" rel="noopener">Structure-dependent selective adsorption and removal of 6PPD and 6PPD-quinone in <span class="mk circle" data-n="ec">chloride-enabled</span> aluminum electrocoagulation.</a></p>
       </div>
       <div class="note"></div>
@@ -520,7 +492,7 @@ dialog::backdrop { background: rgba(10, 14, 15, .45); }
       <div class="txt print pub">
         <span class="label">2025</span>
         <a class="toc" href="https://doi.org/10.1016/j.cclet.2024.110138" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><img src="toc-ccl.jpg" alt="" loading="lazy"></a>
-        <p class="meta"><i>Chinese Chemical Letters</i></p>
+        <p class="meta">Chinese Chemical Letters</p>
         <p><a class="doi" href="https://doi.org/10.1016/j.cclet.2024.110138" target="_blank" rel="noopener">Current advances in UV-based advanced oxidation processes for the abatement of fluoroquinolone antibiotics in wastewater.</a></p>
       </div>
       <div class="note"></div>
@@ -530,7 +502,7 @@ dialog::backdrop { background: rgba(10, 14, 15, .45); }
       <div class="txt print pub">
         <span class="label">2023</span>
         <a class="toc" href="https://doi.org/10.19674/j.cnki.issn1000-6923.20221014.001" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><img src="toc-ces.jpg" alt="" loading="lazy"></a>
-        <p class="meta"><i>China Environmental Science</i> · in Chinese</p>
+        <p class="meta">China Environmental Science</p>
         <p><a class="doi" href="https://doi.org/10.19674/j.cnki.issn1000-6923.20221014.001" target="_blank" rel="noopener">Effects of different fertilization regimes on antibiotics and antibiotic resistance genes in greenhouse vegetable soil.</a></p>
       </div>
       <div class="note"></div>
@@ -540,7 +512,7 @@ dialog::backdrop { background: rgba(10, 14, 15, .45); }
       <div class="txt print pub">
         <span class="label">2022</span>
         <a class="toc" href="https://doi.org/10.1016/j.scitotenv.2022.158616" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><img src="toc-stoten.jpg" alt="" loading="lazy"></a>
-        <p class="meta"><i>Science of the Total Environment</i> · first author</p>
+        <p class="meta">Science of the Total Environment · <i>first author</i></p>
         <p><a class="doi" href="https://doi.org/10.1016/j.scitotenv.2022.158616" target="_blank" rel="noopener">Accumulation and risk assessment of antibiotics in edible plants grown in contaminated farmlands: A review.</a></p>
       </div>
       <div class="note"></div>
@@ -550,7 +522,7 @@ dialog::backdrop { background: rgba(10, 14, 15, .45); }
       <div class="txt print pub">
         <span class="label">2022</span>
         <a class="toc" href="https://doi.org/10.1360/nso/20220029" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><img src="toc-nso.jpg" alt="" loading="lazy"></a>
-        <p class="meta"><i>National Science Open</i></p>
+        <p class="meta">National Science Open</p>
         <p><a class="doi" href="https://doi.org/10.1360/nso/20220029" target="_blank" rel="noopener">Antibiotics in global rivers.</a></p>
       </div>
       <div class="note"></div>
@@ -609,36 +581,8 @@ dialog::backdrop { background: rgba(10, 14, 15, .45); }
     </div>
   </section>
 
-  <section aria-labelledby="h-education">
-    <div class="sec-head"><h2 id="h-education" class="print">Education</h2><span class="margin-label"></span></div>
-
-    <div class="row">
-      <div class="txt print">
-        <span class="label">Ph.D. · 2023–Present</span>
-        <p>Michigan State University, East Lansing, Michigan.</p>
-        <p class="aside">Started at Auburn University in Auburn, Alabama, and <span class="mk under" data-n="drive">moved with my advisor</span> in 2025.</p>
-      </div>
-      <div class="note"></div>
-    </div>
-
-    <div class="row">
-      <div class="txt print">
-        <span class="label">M.S. · 2021–2023</span>
-        <p>China Agricultural University, Beijing, China.</p>
-      </div>
-      <div class="note"></div>
-    </div>
-
-    <div class="row">
-      <div class="txt print">
-        <span class="label">B.S. · 2017–2021</span>
-        <p>Hebei University of Technology, Tianjin, China.</p>
-      </div>
-      <div class="note"></div>
-    </div>
-  </section>
-
-  <footer class="print">Jiagen Geng · East Lansing, Michigan<span class="mine-only"> · Notes in blue are mine.</span></footer>
+  <div class="contact index-me" id="profileLinks"></div>
+  <footer class="print">Jiagen Geng · East Lansing, Michigan</footer>
   </div>
 </div>
 
@@ -733,14 +677,6 @@ const DATA = {
     .replace(/~~(.+?)~~/g, "<s>$1</s>")
     .replace(/\n/g, "<br>")
     .replace(/\[#(\d+)\]/g, '<button class="ref" type="button" data-incident="$1">incident #$1</button>');
-
-  // phone menu: one button opens the section and profile links
-  const nav = $(".index"), menuBtn = $("#menuBtn");
-  const setMenu = open => { nav.classList.toggle("open", open); menuBtn.setAttribute("aria-expanded", String(open)); };
-  menuBtn.addEventListener("click", () => setMenu(!nav.classList.contains("open")));
-  nav.addEventListener("click", e => { if (e.target.closest("a")) setMenu(false); });
-  document.addEventListener("click", e => { if (!e.target.closest(".index")) setMenu(false); });
-  document.addEventListener("keydown", e => { if (e.key === "Escape") setMenu(false); });
 
   // profile links
   const L = DATA.links || {};
