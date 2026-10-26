@@ -82,13 +82,6 @@ button { font: inherit; color: inherit; }
 .contact { border-top: 1.5px solid var(--ink); padding-top: 1rem; font: 400 1em/1.4 var(--f-body); gap: .6rem 1.6rem; }
 .contact a { color: var(--ink); text-decoration: none; }
 .contact a:hover { color: var(--pen); text-decoration: underline; text-underline-offset: 3px; }
-.index-me .mail { display: inline-flex; align-items: center; gap: .45rem; color: var(--muted); }
-.index-me .addr { user-select: all; color: var(--ink); }
-.index-me .copy {
-  border: 1px solid var(--rule); background: transparent; border-radius: 999px;
-  padding: .1rem .55rem; font: 500 .72rem/1.3 var(--f-mono); color: var(--muted); cursor: pointer;
-}
-.index-me .copy:hover { border-color: var(--pen); color: var(--pen); }
 h2 { scroll-margin-top: 4.5rem; }
 abbr[data-full] { position: relative; text-decoration: underline dotted; text-decoration-color: var(--muted); text-decoration-thickness: 1px; text-underline-offset: 3px; }
 .nowrap { white-space: nowrap; }
@@ -479,7 +472,7 @@ dialog::backdrop { background: rgba(10, 14, 15, .45); }
   <header class="top">
     <div>
       <h1 class="print">Jiagen Geng</h1>
-      <p class="affil print">Ph.D. student in Environmental Engineering at Michigan State University, advised by <a class="doi" href="https://shiqiangzou.com/" target="_blank" rel="noopener">Dr. Shiqiang (Nick) Zou</a>.</p>
+      <p class="affil print">Hi, I’m Jiagen, a Ph.D. student in Environmental Engineering at Michigan State University who loves a good challenge. My advisor is <a class="doi" href="https://shiqiangzou.com/" target="_blank" rel="noopener">Dr. Shiqiang (Nick) Zou</a>.</p>
       <div class="bio">
         <p class="intro lead print formal-only">I work on organic pollutants that shouldn't be in water: where they end up, and how to get them out, these days with electrochemistry.</p>
         <p class="intro lead print mine-only">First antibiotics, now chemicals from car tires. Doctors yell “Clear!” and shock people back to life. I yell <a class="clear-link" href="https://www.linkedin.com/posts/dr-shiqiang-nick-zou-assistant-professor-share-7480246963242754048-OMmO/" target="_blank" rel="noopener" title="CLEAR: our EPA-funded project">“CLEAR!”</a> and shock pollutants out of water. Still working on the title.</p>
@@ -736,14 +729,8 @@ const DATA = {
   if (L.cv) bits.push(`<a href="${esc(L.cv)}" target="_blank" rel="noopener"><span>CV<span class="m-only"> (PDF)</span></span></a>`);
   if (L.linkedin) bits.push(`<a href="${esc(L.linkedin)}" target="_blank" rel="noopener"><span>LinkedIn</span></a>`);
   if (L.scholar) bits.push(`<a href="${esc(L.scholar)}" target="_blank" rel="noopener"><span>Google Scholar</span></a>`);
-  if (L.email) bits.push(`<span class="mail"><span class="addr">${esc(L.email)}</span><button class="copy" type="button" id="copyMail">Copy</button><span class="sr-only" id="copyStatus" role="status"></span></span>`);
+  if (L.email) bits.push(`<a class="mail" href="mailto:${esc(L.email)}">${esc(L.email)}</a>`);
   $("#profileLinks").innerHTML = bits.join("");
-  const cm = $("#copyMail");
-  if (cm) cm.addEventListener("click", () => {
-    const done = () => { cm.textContent = "Copied"; $("#copyStatus").textContent = "Email copied"; setTimeout(() => { cm.textContent = "Copy"; $("#copyStatus").textContent = ""; }, 1500); };
-    const pick = () => { const r = document.createRange(); r.selectNodeContents($(".addr")); const sel = getSelection(); sel.removeAllRanges(); sel.addRange(r); $("#copyStatus").textContent = "Email address selected; press Command or Control plus C to copy"; };
-    try { navigator.clipboard.writeText(L.email).then(done, pick); } catch (e) { pick(); }
-  });
 
   // margin notes: shown beside the text while a marked phrase is hovered, focused or tapped
   const fl = $("#floatNote");
