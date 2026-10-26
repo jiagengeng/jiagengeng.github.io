@@ -747,13 +747,14 @@ const DATA = {
 
   // margin notes: shown beside the text while a marked phrase is hovered, focused or tapped
   const fl = $("#floatNote");
-  let hideT = 0, cur = null;
+  let hideT = 0, cur = null, shownAt = 0;
   const hideNow = () => { clearTimeout(hideT); fl.hidden = true; if (cur) { cur.classList.remove("hot"); if (cur.hasAttribute("aria-expanded")) cur.setAttribute("aria-expanded", "false"); } cur = null; };
   const hideSoon = () => { clearTimeout(hideT); hideT = setTimeout(hideNow, 350); };
   const showNote = m => {
     const text = DATA.notes[m.dataset.n];
     if (!text || $("#page").classList.contains("formal")) return;
     clearTimeout(hideT);
+    if (cur !== m || fl.hidden) shownAt = performance.now();
     if (cur && cur !== m) { cur.classList.remove("hot"); if (cur.hasAttribute("aria-expanded")) cur.setAttribute("aria-expanded", "false"); }
     cur = m; m.classList.add("hot");
     if (m.hasAttribute("aria-expanded")) m.setAttribute("aria-expanded", "true");
@@ -818,7 +819,8 @@ const DATA = {
     m.addEventListener("click", e => {
       if ($("#page").classList.contains("formal")) return;
       if (m.closest("a")) e.preventDefault();
-      if (cur === m && !fl.hidden) hideNow(); else showNote(m);
+      // a tap fires focus/mouseenter (which open the note) right before click; that click keeps it open
+      if (cur === m && !fl.hidden && performance.now() - shownAt > 500) hideNow(); else showNote(m);
     });
   });
   fl.addEventListener("mouseenter", () => clearTimeout(hideT));
