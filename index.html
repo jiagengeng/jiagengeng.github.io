@@ -13,8 +13,13 @@
 <title>Jiagen Geng</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Roboto+Mono:wght@400;500;700&family=Kalam:wght@400;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;700&family=Kalam:wght@400;700&display=swap">
 <style>
+/* Inter, self-hosted from the official release (SIL OFL, see Inter-LICENSE.txt):
+   Google's copy drops the slashed-zero feature */
+@font-face { font-family: "Inter"; font-style: normal; font-weight: 100 900; font-display: swap; src: url("InterVariable.woff2") format("woff2"); }
+@font-face { font-family: "Inter"; font-style: italic; font-weight: 100 900; font-display: swap; src: url("InterVariable-Italic.woff2") format("woff2"); }
+
 /* Layout: a lab notebook page. Printed text on the left, ballpoint margin notes on the right, aligned row by row. */
 :root {
   --paper: #f6f8f8;
@@ -27,8 +32,8 @@
   --sign: #f4c430;
   --sign-ink: #121718;
 
-  --f-display: "Instrument Sans", "Helvetica Neue", Arial, sans-serif;
-  --f-body: "Instrument Sans", "Helvetica Neue", Arial, sans-serif;
+  --f-display: "Inter", "Helvetica Neue", Arial, sans-serif;
+  --f-body: "Inter", "Helvetica Neue", Arial, sans-serif;
   --f-mono: "Roboto Mono", ui-monospace, Menlo, monospace;
   --f-hand: "Kalam", "Comic Sans MS", "Bradley Hand", cursive;
 
@@ -50,6 +55,7 @@ body {
   background: var(--paper);
   color: var(--ink);
   font: 400 1.0625rem/1.6 var(--f-body);
+  font-feature-settings: "zero" 1;
   overflow-x: hidden;
 }
 /* section links glide to their heading instead of jumping */
