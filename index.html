@@ -22,9 +22,9 @@
 
 /* Layout: a lab notebook page. Printed text on the left, ballpoint margin notes on the right, aligned row by row. */
 :root {
-  --paper: #f6f8f8;
+  --paper: #ffffff;
   --card: #ffffff;
-  --ink: #121718;
+  --ink: #1d1d1f;
   --muted: #5a6568;
   --rule: #dce2e3;
   --pen: #2640b5;
@@ -79,6 +79,7 @@ button { font: inherit; color: inherit; }
 .index-me .copy:hover { border-color: var(--pen); color: var(--pen); }
 h2 { scroll-margin-top: 4.5rem; }
 abbr[data-full] { position: relative; text-decoration: underline dotted; text-decoration-color: var(--muted); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+.nowrap { white-space: nowrap; }
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
 .no-tips abbr[data-full]::after { display: none !important; }
 abbr[data-full]:hover::after, abbr[data-full]:focus-visible::after {
@@ -239,14 +240,14 @@ h2 {
 }
 .row .txt { min-width: 0; max-width: 62ch; }
 .row .label {
-  font: 400 1em/1.6 var(--f-mono); color: var(--green);
+  font: 500 1em/1.6 var(--f-mono); color: var(--green);
   display: block; margin-bottom: .2rem;
 }
 .row p { margin: 0; }
 .row .txt p + p { margin-top: .3rem; }
 .row .txt .aside { font-size: .95rem; color: var(--green); }
 .skill-list { display: grid; grid-template-columns: 11.5rem minmax(0, 1fr); gap: .45rem 1rem; margin: .15rem 0 0; }
-.skill-list dt { font: 400 1em/1.6 var(--f-mono); color: var(--green); }
+.skill-list dt { font: 500 1em/1.6 var(--f-mono); color: var(--green); }
 .skill-list dd { margin: 0; }
 @media (max-width: 560px) { .skill-list { grid-template-columns: minmax(0, 1fr); gap: .05rem; } .skill-list dd { margin-bottom: .45rem; } }
 .row .title { font-weight: 700; }
@@ -461,7 +462,7 @@ dialog::backdrop { background: rgba(10, 14, 15, .45); }
 
     <div class="row">
       <div class="txt print">
-        <span class="label">Ph.D. Tire Wear Particles</span>
+        <span class="label">Ph.D.<br><span class="nowrap">Tire Wear Particles</span></span>
         <p>Tire wear particles release <abbr data-full="N-(1,3-dimethylbutyl)-N′-phenyl-p-phenylenediamine" tabindex="0">6PPD</abbr>, an antioxidant in nearly every tire. Its ozonation product, <span class="mk under" data-n="sixq">6PPD-quinone</span>, reaches streams in stormwater and is acutely lethal to coho salmon. I develop electrochemical strategies to remove both, built around modular, electrified treatment units.</p>
       </div>
       <div class="note"></div>
@@ -469,7 +470,7 @@ dialog::backdrop { background: rgba(10, 14, 15, .45); }
 
     <div class="row">
       <div class="txt print">
-        <span class="label">M.S. Antibiotics</span>
+        <span class="label">M.S.<br><span class="nowrap">Antibiotics</span></span>
         <p>Antibiotics from farming and medicine end up in rivers, soils and the crops grown on them. I studied where they accumulate and what risks they pose, and how to degrade them with modified biochar-catalyzed and UV-based advanced oxidation, including how dissolved organic matter changes its efficiency.<span class="mine-only"> I quantified norfloxacin by HPLC, on an <span class="mk circle" data-n="age">Agilent 1100</span> almost as old as I am.</span></p>
       </div>
       <div class="note"></div>
